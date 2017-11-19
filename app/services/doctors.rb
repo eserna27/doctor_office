@@ -5,9 +5,11 @@ module Doctors
     Form.new(attrs)
   end
 
-  def self.create_patient(attrs, user_store)
+  def self.create_patient(attrs, pacient_store)
     form = Form.new(attrs)
     if form.valid?
+      pacient_store.create(form.to_h)
+      SuccessStatus.new
     else
       ErrorStatus.new(form)
     end
@@ -23,6 +25,16 @@ module Doctors
 
     def initialize(attrs)
        ATTRS.map{|key| instance_variable_set("@#{key}", attrs[key])}
+    end
+
+    def to_h
+      ATTRS.map{|attr| [attr, send(attr)]}.to_h
+    end
+  end
+
+  class SuccessStatus
+    def success?
+      true
     end
   end
 
