@@ -1,0 +1,29 @@
+<div class="container">
+  <%= render "layouts/doctor_header", title: "Todos los Pacientes", submenu: :patient %>
+  <div class="row">
+    <div class="col">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Correo</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellidos</th>
+            <th scope="col">Sexo</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% patients.each do |patient| %>
+            <tr>
+              <th scope="row"><%= patient.email %></th>
+              <td><%= patient.name %></td>
+              <td><%= patient.last_name %></td>
+              <td><%= patient.gender %></td>
+              <td><%= link_to "Crear consulta", new_doctor_consultation_path(patient_id: patient.id) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </end>
+  </end>
+</end>

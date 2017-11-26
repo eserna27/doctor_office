@@ -1,0 +1,26 @@
+<section class="page-header">
+  <div class="row page-header-principal">
+    <div class="col">
+      <h2>
+        <%= title %>
+      </h2>
+    </div>
+    <div class="col float-right">
+      <%= link_to "Mi perfil", doctor_root_path, class: "btn btn-link float-right" %>
+      <%= link_to "Pacientes", doctor_patients_path, class: "btn btn-link float-right" %>
+      <%= link_to "Consultas", doctor_consultations_path, class: "btn btn-link float-right" %>
+    </div>
+  </div>
+  <div class="row page-header-submenu">
+    <div class="col float-right">
+      <% if submenu == :patient %>
+        <%= link_to "Crear paciente", new_doctor_patient_path, class: "btn btn-link float-right" %>
+        <%= link_to "Ver pacientes", doctor_patients_path, class: "btn btn-link float-right" %>
+      <% end %>
+      <% if submenu == :consultation %>
+        <%= link_to "Ver consultas", doctor_consultations_path, class: "btn btn-link float-right" %>
+        <%= link_to "Crear consulta", new_doctor_consultation_path, class: "btn btn-link float-right" %>
+      <% end %>
+    </div>
+  </div>
+</section>
