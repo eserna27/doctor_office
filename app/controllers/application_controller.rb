@@ -1,7 +1,9 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-  def index
-    redirect_to new_doctor_session_path
+  protected
+
+  def after_sign_in_path_for(resource)
+    doctor_root_path
   end
 end

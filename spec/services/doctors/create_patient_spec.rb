@@ -38,12 +38,12 @@ module Doctors
       attr_reader :status, :form
 
       before do
-        pacient_attrs = {name: "", last_name: "", email: "", gender: "", doctor_id: rand(10)}
-        @status = Doctors.create_patient(pacient_attrs, pacient_store)
+        patient_attrs = {name: "", last_name: "", email: "", gender: "", doctor_id: rand(10)}
+        @status = Doctors.create_patient(patient_attrs, patient_store_with)
         @form = status.form
       end
 
-      it "should have errors" do
+      it "has not be success" do
         expect(status).not_to be_success
       end
 
@@ -64,32 +64,32 @@ module Doctors
       end
     end
 
-    describe "when pacient attributes are good" do
-      attr_reader :pacient_attrs
+    describe "when patient attributes are good" do
+      attr_reader :patient_attrs, :patient_store
 
       before do
-        @pacient_attrs = {
+        @patient_attrs = {
           name: "Emmanuel",
           last_name: "Serna Sandoval",
           email: "eserna27@gmail.com",
           gender: "m",
           doctor_id: rand(10)}
+        @patient_store = patient_store_with
       end
 
       it "should have success status" do
-        status = Doctors.create_patient(pacient_attrs, pacient_store)
+        status = Doctors.create_patient(patient_attrs, patient_store)
         expect(status).to be_success
       end
 
       it "should call patient store" do
-        pacient_store_local = pacient_store
-        expect(pacient_store_local).to receive(:create).with(pacient_attrs)
-        Doctors.create_patient(pacient_attrs, pacient_store_local)
+        expect(patient_store).to receive(:create).with(patient_attrs)
+        Doctors.create_patient(patient_attrs, patient_store)
       end
     end
 
-    def pacient_store
-      DummyStore.new
+    def patient_store_with
+      PatientFakeStore.new
     end
   end
 end
