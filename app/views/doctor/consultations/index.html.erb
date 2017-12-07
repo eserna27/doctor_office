@@ -2,8 +2,44 @@
   <%= render "layouts/doctor_header", title: "Todas las Consultas", submenu: :consultation%>
 
   <div class="row">
-    <div class="col">
-
+    <div class="col text-left">
+      <%= link_to "< Semana anterior", doctor_consultations_path(date: week_view.last_week), class: "btn btn-outline-info"%>
     </div>
+    <div class="col text-center">
+      <%= link_to "Semana Actual", doctor_consultations_path, class: "btn btn-outline-info"%>
+    </div>
+    <div class="col text-right">
+      <%= link_to "Semana siguiente >", doctor_consultations_path(date: week_view.next_week), class: "btn btn-outline-info"%>
+    </div>
+  </div>
+  </br>
+  <div class="row">
+    <% week_view.current_week.each do |week_day| %>
+      <div class="col">
+        <div class="calendar-header">
+          <%= week_day.name %>
+        </div>
+        <%= "#{week_day.day.mday} #{week_day.month}" %>
+        </br>
+        <div class="card">
+          <ul class="list-group list-group-flush">
+            <% week_day.consultations.each do |consultation| %>
+              <li class="list-group-item" style="padding: 5px">
+                <small><strong><%= consultation.hour_label %></strong></small>
+                </br>
+                <% if consultation.taken?  %>
+                  <p><small><%= consultation.patient_name %></small></p>
+                  <%= link_to "Atender" , "", class: "btn btn-outline-success btn-sm btn-block" %>
+                <% elsif consultation.open?%>
+                  <%= link_to "Disponible" , new_doctor_consultation_path(time: consultation.date_time), class: "btn btn-outline-primary btn-sm btn-block", remote: true %>
+                <% else %>
+                  <%= link_to "No Disponible" ,"", class: "btn btn-outline-secondary btn-sm btn-block disabled", remote: true %>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>

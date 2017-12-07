@@ -3,7 +3,16 @@
 
   <div class="row">
     <div class="col-6">
-
+      <%= simple_form_for form, as: :consultation, url: doctor_consultations_path do |f| %>
+        <% if form.patient? %>
+          <p><strong>Paciente: </strong><%= form.patient_name %></p>
+          <%= f.hidden_field :patient_id %>
+        <% else %>
+          <%= f.input :patient_id, label: "Paciente", collection: form.patients_options %>
+        <% end %>
+        <%= f.input :datetieme, label: "Dia y hora", as: :datetime, id: "date-picker" %>
+        <%= f.submit "Crear consulta", class: "btn btn-primary"   %>
+      <% end %>
     </div>
   </div>
 </div>
