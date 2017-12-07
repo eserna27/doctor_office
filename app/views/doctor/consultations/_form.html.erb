@@ -1,0 +1,23 @@
+<div class="modal fade" tabindex="-1" role="dialog" id="form-consultation">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          Consulta nueva el <%= form.day_label %>
+            <strong class="text-primary"><%= form.time_label %></strong>
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= simple_form_for form, as: :consultation, url: doctor_consultations_path, remote: true do |f| %>
+          <%= f.input :patient_id, label: "Paciente", collection: form.patients_options,
+            input_html: { class: 'chosen-select' } %>
+          <%= f.hidden_field :time %>
+          <%= f.submit "Crear consulta", class: "btn btn-primary"   %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,2 @@
+$("#form-consultation").remove();
+$("<%= escape_javascript(render partial: 'form', locals: {form: form}) %>").appendTo("body").modal();
