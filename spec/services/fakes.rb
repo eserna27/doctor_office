@@ -8,6 +8,9 @@ class DummyStore
   def create(attrs)
   end
 
+  def update(id, attrs)
+  end
+
   def find(id)
     all.detect { |record| record.id == id }
   end
@@ -37,10 +40,22 @@ class ConsultationFakeStore < DummyStore
   def doctor_day_consultations(doctor_id:, time:)
     all.select {|record|  record.doctor_id == doctor_id && (record.time.to_date == time.to_date ) }
   end
+
+  def patient_consultations(patient_id, doctor_id)
+    all.select {|record|  record.doctor_id == doctor_id && record.patient_id == patient_id  }
+  end
+
+  def find_consultation_for_patient_and_doctor(params)
+    all.detect {|record|
+      record.id == params[:id] &&
+      record.doctor_id == params[:doctor_id] &&
+      record.patient_id == params[:patient_id]  }
+  end
 end
 
 class ConsultationFake
-  ATTRS = [:doctor_id, :time, :patient]
+  ATTRS = [:doctor_id, :time, :patient, :id, :terminated_at,
+    :patient_id, :diagnostic, :prescription, :observations]
 
   attr_reader(*ATTRS)
 

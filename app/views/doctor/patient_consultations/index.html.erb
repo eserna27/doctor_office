@@ -1,0 +1,36 @@
+<div class="container">
+  <%= render "layouts/doctor_header", title: "Historial de #{consultation_view.patient_name}", submenu: :patient %>
+  <div class="row">
+    <div class="col">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Fecha</th>
+            <th scope="col">Diagnostico</th>
+            <th scope="col">Terminada</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% consultation_view.list.each do |consultation| %>
+            <tr>
+              <th scope="row"><%= consultation.time_at %></th>
+              <td><%= consultation.diagnostic %></td>
+              <th scope="row"><%= consultation.terminated_at %></th>
+              <td>
+                <% if consultation.terminated_at %>
+                  <%= link_to "Ver Consulta", doctor_patient_consultation_path(id: consultation.id, patient_id: consultation_view.patient_id),
+                    class: "btn btn-sm btn-outline-primary" %>
+                <% else %>
+                  <%= link_to "Atender" ,
+                    attend_patient_doctor_consultation_path(id: consultation.id, link_origin: :medical_history),
+                    class: "btn btn-success btn-sm" %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </end>
+  </div>
+</div>

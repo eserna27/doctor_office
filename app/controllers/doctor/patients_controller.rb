@@ -7,9 +7,23 @@ class Doctor::PatientsController < ApplicationController
   def create
     status = Doctors.create_patient(params[:patient].merge(doctor_id: current_doctor.id), Patient)
     if status.success?
-      redirect_to doctor_patients_path
+      redirect_to doctor_patients_path, alert: "Paciente creado"
     else
       render :new, locals: {form: status.form}
+    end
+  end
+
+  def edit
+    form = Doctors.edit_patient(params[:id], Patient)
+    render :edit, locals: {form: form}
+  end
+
+  def update
+    status = Doctors.update_patient(params[:id], params[:patient].merge(doctor_id: current_doctor.id), Patient)
+    if status.success?
+      redirect_to doctor_patients_path, alert: "Paciente actualizado"
+    else
+      render :edit, locals: {form: status.form}
     end
   end
 

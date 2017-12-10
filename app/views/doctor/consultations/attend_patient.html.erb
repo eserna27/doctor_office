@@ -1,0 +1,21 @@
+<div class="container">
+  <%= render "layouts/doctor_header", title: "Consulta a #{attend_form.patient_name}", submenu: :consultation%>
+  <div class="row">
+    <div class="col">
+      <%= simple_form_for attend_form,
+        as: :consultation,
+        method: :patch,
+        url: doctor_consultation_path(attend_form.consultation_id) do |f| %>
+        <%= f.input :observations, label: "Observaciones", as: :text %>
+        <%= f.input :diagnostic, label: "Diagnostico", as: :text %>
+        <%= f.input :prescription, label: "Receta", as: :text %>
+        <% if link_origin == "calendar" %>
+          <%= link_to "Cancelar", doctor_consultations_path, class: "btn btn-light" %>
+        <% else %>
+          <%= link_to "Regresar", doctor_patient_consultations_path(attend_form.patient_id), class: "btn btn-light" %>
+        <% end %>
+        <%= f.submit "Terminar Consulta", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+</div>

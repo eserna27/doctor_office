@@ -15,6 +15,20 @@ module Doctors
     end
   end
 
+  def self.edit_patient(patient_id, patient_store)
+    PatientForm.edit_patient(patient_store.find(patient_id))
+  end
+
+  def self.update_patient(patient_id, patient_attrs, patient_store)
+    form = PatientForm.new(patient_attrs.merge(id: patient_id))
+    if form.valid?
+      patient_store.update(patient_id, form.to_h)
+      SuccessStatus.new
+    else
+      ErrorStatus.new(form)
+    end
+  end
+
   def self.list_patients(doctor_id, patient_store)
     patient_store.patient_with_doctor_id(doctor_id)
   end
@@ -24,11 +38,22 @@ module Doctors
 
     ATTRS = [:name, :last_name, :email, :gender, :doctor_id]
 
-    attr_accessor(*ATTRS)
+    attr_accessor(:id, *ATTRS)
     validates_presence_of(*ATTRS)
 
     def initialize(attrs)
        ATTRS.map{|key| instance_variable_set("@#{key}", attrs[key])}
+       @id = attrs[:id] if attrs[:id]
+    end
+
+    def self.edit_patient(patient_for_store)
+      new({
+          id: patient_for_store.id,
+          name: patient_for_store.name,
+          last_name: patient_for_store.last_name,
+          email: patient_for_store.email,
+          gender: patient_for_store.gender
+        })
     end
 
     def to_h

@@ -1,0 +1,16 @@
+<div class="container">
+  <%= render "layouts/doctor_header", title: "Editar Paciente", submenu: :patient %>
+
+  <div class="row">
+    <div class="col-6">
+      <%= simple_form_for form, as: :patient, url: doctor_patient_path(form.id), method: :patch do |f| %>
+        <%= f.input :name, label: "Nombre" %>
+        <%= f.input :last_name, label: "Apellidos" %>
+        <%= f.input :gender, label: "Sexo", collection: ["Hombre", "Mujer"] %>
+        <%= f.input :email, label: "Correo" %>
+        <%= link_to "Cancelar", doctor_patients_path, class: "btn btn-light" %>
+        <%= f.submit "Guardar", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+</div>
