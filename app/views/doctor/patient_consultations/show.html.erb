@@ -1,0 +1,20 @@
+<div class="container">
+  <%= render "layouts/doctor_header", title: "Consulta", submenu: :consultation%>
+  <div class="row">
+    <div class="col">
+      <%= simple_form_for consultation,
+        as: :consultation,
+        method: :patch,
+        url: doctor_consultation_path(consultation.id) do |f| %>
+        <%= f.input :observations, label: "Observaciones", as: :text, disabled: true %>
+        <%= f.input :diagnostic, label: "Diagnostico", as: :text, disabled: true %>
+        <%= f.input :prescription, label: "Receta", as: :text, disabled: true %>
+        <% if link_origin == "calendar" %>
+          <%= link_to "Regresar", doctor_consultations_path, class: "btn btn-secondary" %>
+        <% else %>
+          <%= link_to "Regresar", doctor_patient_consultations_path(consultation.patient_id), class: "btn btn-secondary" %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

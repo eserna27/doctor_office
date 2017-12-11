@@ -25,6 +25,44 @@ module Consultations
     end
   end
 
+  def self.attend_patient(consultation_id, consultation_store)
+    AttendPatientForm.new(consultation_store.find(consultation_id))
+  end
+
+  def self.update_consultation(consultation_params, consultation_store)
+    consultation_store.update(consultation_params[:consultation_id],
+      {
+        observations: consultation_params[:observations],
+        diagnostic: consultation_params[:diagnostic],
+        prescription: consultation_params[:prescription],
+        terminated_at: consultation_params[:terminated_at] || DateTime.now
+      })
+  end
+
+  def self.show_consultation(params, consultation_store)
+    consultation_store.find_consultation_for_patient_and_doctor(params)
+  end
+
+  class AttendPatientForm < SimpleDelegator
+    include ActiveModel::Model
+
+    attr_reader :observations, :diagnostic, :prescription
+    delegate :id, :name, :last_name, to: :patient, prefix: true
+    delegate :id, to: :consultation, prefix: :consultation
+
+    def initialize(consultation)
+      @consultation = consultation
+      @patient = consultation.patient
+    end
+
+    def patient_name
+      "#{patient.name} #{patient.last_name}".titleize
+    end
+
+    private
+    attr_reader :consultation, :patient
+  end
+
   class Form
     include ActiveModel::Model
 

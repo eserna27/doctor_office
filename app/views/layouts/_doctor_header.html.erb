@@ -21,10 +21,17 @@
           <%= link_to "Ver pacientes", doctor_patients_path, class: "btn btn-outline-dark float-right" %>
         <% end %>
         <% if submenu == :consultation %>
-          <%= link_to "Ver consultas", doctor_consultations_path, class: "btn btn-outline-dark float-right" %>
-          <%= link_to "Crear consulta", new_doctor_consultation_path, class: "btn btn-outline-dark float-right" %>
         <% end %>
       </div>
     </div>
   </div>
 </section>
+<% if alert %>
+  <div class="alert alert-primary" role="alert">
+    <%= alert %>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  </br>
+<% end %>

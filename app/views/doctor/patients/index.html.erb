@@ -19,7 +19,10 @@
               <td><%= patient.name %></td>
               <td><%= patient.last_name %></td>
               <td><%= patient.gender %></td>
-              <td><%= link_to "Crear consulta", new_doctor_consultation_path(patient_id: patient.id) %></td>
+              <td>
+                <%= link_to "Ver Consultas", doctor_patient_consultations_path(patient_id: patient.id), class: "btn btn-sm btn-outline-primary" %>
+                <%= link_to "Editar", edit_doctor_patient_path(patient.id), class: "btn btn-sm btn-outline-info" %>
+              </td>
             </tr>
           <% end %>
         </tbody>

@@ -21,9 +21,23 @@ class Doctor::ConsultationsController < ApplicationController
     end
   end
 
+  def attend_patient
+    attend_form = Consultations.attend_patient(params[:id], Consultation)
+    render :attend_patient, locals: {attend_form: attend_form, link_origin: params[:link_origin]}
+  end
+
+  def update
+    Consultations.update_consultation(consultation_params, Consultation)
+    redirect_to doctor_consultations_path, alert: "Consulta terminada"
+  end
+
   private
 
   def date_param
     params[:date] ? DateTime.parse(params[:date]) : DateTime.now
+  end
+
+  def consultation_params
+    params[:consultation].merge!(consultation_id: params[:id])
   end
 end

@@ -83,8 +83,9 @@ module Calendar
     end
   end
 
-  class Consultation
+  class Consultation < SimpleDelegator
     attr_reader :date_time
+    delegate :id, to: :consultation
 
     def initialize(date_time, current_date, consultation)
       @date_time = date_time
@@ -106,7 +107,19 @@ module Calendar
     end
 
     def patient_name
-      "#{patient.name} #{patient.last_name}".titleize
+      "#{patient.name}".titleize
+    end
+
+    def badge_class
+      open? ? "badge-info" : "badge-light"
+    end
+
+    def patient_id
+      patient.id
+    end
+
+    def terminated?
+      !!consultation.terminated_at
     end
 
     private
