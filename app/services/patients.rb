@@ -4,6 +4,38 @@ module Patients
     ListConsultationsView.new(consultation_store.patient_consultations(patient_id, doctor_id), patient)
   end
 
+  def self.accept_or_cancel_consultation_mail(consultation_id, consultation_store)
+    ConsultationMailView.new(consultation_store.find(consultation_id))
+  end
+
+  class ConsultationMailView < SimpleDelegator
+    delegate :id, :time, to: :consultation, prefix: true
+
+    def initialize(consultation)
+      @consultation = consultation
+      @patient = consultation.patient
+      @doctor = consultation.doctor
+    end
+
+    def patient_name
+      "#{patient.name} #{patient.last_name}".titleize
+    end
+
+    def patient_email
+      patient.email
+    end
+
+    def consultation_time_at
+      "#{consultation_time.strftime("%H:%M")} del #{consultation_time.strftime("%d")}-#{Calendar::MONTHS[consultation_time.strftime("%_m").to_i]}-#{consultation_time.strftime("%Y")}"
+    end
+
+    def doctor_name
+      "#{doctor.name} #{doctor.last_name}".titleize
+    end
+
+    attr_reader :consultation, :patient, :doctor
+  end
+
   class ListConsultationsView < SimpleDelegator
     attr_reader :list
     delegate :id, to: :patient, prefix: true

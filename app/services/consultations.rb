@@ -18,8 +18,8 @@ module Consultations
       patients_options: patients_options
     })
     if form.valid?
-      consultation_store.create(form.to_h)
-      SuccessStatus.new
+      consultation = consultation_store.create(form.to_h)
+      SuccessStatus.new(consultation.id)
     else
       ErrorStatus.new(form)
     end
@@ -93,6 +93,12 @@ module Consultations
   end
 
   class SuccessStatus
+    attr_reader :consultation_id
+
+    def initialize(consultation_id)
+      @consultation_id = consultation_id
+    end
+
     def success?
       true
     end

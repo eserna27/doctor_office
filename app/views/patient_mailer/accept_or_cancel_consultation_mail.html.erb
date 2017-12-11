@@ -1,0 +1,11 @@
+<h2>
+  Hola <%= @mail_view.patient_name %>
+</h2>
+<p>
+  Tienes una cita con el Doctor <%= @mail_view.doctor_name %> a las <%= @mail_view.consultation_time_at %>
+</p>
+<br>
+<p>
+  Si desea cancelar la consulta puede dar click a
+  <%= link_to "cancelar", cancel_consultation_url(id: @mail_view.consultation_id) %>
+</p>

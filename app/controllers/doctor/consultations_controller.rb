@@ -15,6 +15,7 @@ class Doctor::ConsultationsController < ApplicationController
       Consultation,
       Patient)
     if status.success?
+      send_mail_accept_or_cancel_to_patient(status)
       redirect_to doctor_consultations_path
     else
       render :form_with_errors, locals: {form: status.form}
@@ -39,5 +40,10 @@ class Doctor::ConsultationsController < ApplicationController
 
   def consultation_params
     params[:consultation].merge!(consultation_id: params[:id])
+  end
+
+  def send_mail_accept_or_cancel_to_patient(status)
+    mail_view = Patients.accept_or_cancel_consultation_mail(status.consultation_id, Consultation)
+    PatientMailer.accept_or_cancel_consultation_mail(mail_view).deliver_now
   end
 end
