@@ -79,6 +79,32 @@ module Consultations
       end
     end
 
+    describe "when is create" do
+      attr_reader :status
+
+      before do
+        time = "2017-11-27T13:00:00-06:00"
+        doctor_id = rand(10)
+        patient = patient_with({
+          id: rand(10),
+          name: "emmanuel",
+          last_name: "serna sandoval",
+          email: "eserna27@gmail.com",
+          gender: "hombre",
+          doctor_id: doctor_id
+        })
+        patients = [patient]
+        patient_store = patient_store_with(patients)
+        params = { time: time, patient_id: "1", doctor_id: doctor_id }
+        consultation_store = ConsultationFakeStore.new([])
+        @status = Consultations.create_consultation(params, consultation_store, patient_store)
+      end
+
+      it "has consultation id" do
+        expect(status.consultation_id).to be_present
+      end
+    end
+
     def patient_store_with(records)
       PatientFakeStore.new(records)
     end

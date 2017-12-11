@@ -45,6 +45,10 @@ class ConsultationFakeStore < DummyStore
     all.select {|record|  record.doctor_id == doctor_id && record.patient_id == patient_id  }
   end
 
+  def create(attrs)
+    ConsultationFake.new(id: :new)
+  end
+
   def find_consultation_for_patient_and_doctor(params)
     all.detect {|record|
       record.id == params[:id] &&
@@ -55,7 +59,17 @@ end
 
 class ConsultationFake
   ATTRS = [:doctor_id, :time, :patient, :id, :terminated_at,
-    :patient_id, :diagnostic, :prescription, :observations]
+    :patient_id, :diagnostic, :prescription, :observations, :doctor]
+
+  attr_reader(*ATTRS)
+
+  def initialize(attrs)
+    ATTRS.map{|key| instance_variable_set("@#{key}", attrs[key])}
+  end
+end
+
+class DoctorFake
+  ATTRS = [:name, :last_name]
 
   attr_reader(*ATTRS)
 
