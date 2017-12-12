@@ -122,6 +122,22 @@ module Calendar
       !!consultation.terminated_at
     end
 
+    def status
+      if consultation
+        return "Pendiente" if consultation.status == "pending"
+        return "Cancelada" if consultation.status == "cancel"
+        return "Acceptada" if consultation.status == "accepted"
+      end
+    end
+
+    def status_class
+      if consultation
+        return "text-warning" if consultation.status == "pending"
+        return "text-danger" if consultation.status == "cancel"
+        return "text-success" if consultation.status == "accepted"
+      end
+    end
+
     private
     attr_reader :current_date, :consultation, :patient
   end

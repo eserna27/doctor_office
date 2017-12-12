@@ -8,6 +8,7 @@ module Patients
       consultation = consultation_with({
           id: @consultation_id = rand(10),
           time: Date.parse('17/11/28 11:00'),
+          confidencial_id: nil,
           patient: patient_with({
             name: "emmanuel",
             last_name: "serna sandoval",
@@ -40,6 +41,26 @@ module Patients
 
     it "has a doctor_name" do
       expect(mail_view.doctor_name).to eq "Juan Antonio Mireles"
+    end
+
+    it "has a consultation_confidencial_id" do
+      expect(mail_view.consultation_confidencial_id).to eq nil
+    end
+
+    describe "consultation add uuid" do
+      it "should add uuid" do
+        consultation = consultation_with({
+            id: consultation_id = rand(10),
+            confidencial_id: nil,
+            patient: patient_with({
+            }),
+            doctor: doctor_with({
+            })
+        })
+        consultation_store = consultation_store_with([consultation])
+        expect(consultation_store).to receive(:update)
+        Patients.accept_or_cancel_consultation_mail(consultation_id, consultation_store)
+      end
     end
 
     def patient_with(attrs)

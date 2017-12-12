@@ -15,6 +15,10 @@ class DummyStore
     all.detect { |record| record.id == id }
   end
 
+  def find_by(params)
+    all.detect { |record|  record.instance_variable_get("@#{params.keys.first}") == params.values.first }
+  end
+
   def where(attr)
     all.select { |record|  record.instance_variable_get("@#{attr.keys.first}") == attr.values.first }
   end
@@ -58,8 +62,8 @@ class ConsultationFakeStore < DummyStore
 end
 
 class ConsultationFake
-  ATTRS = [:doctor_id, :time, :patient, :id, :terminated_at,
-    :patient_id, :diagnostic, :prescription, :observations, :doctor]
+  ATTRS = [:doctor_id, :time, :patient, :id, :terminated_at, :status,
+    :patient_id, :diagnostic, :prescription, :observations, :doctor, :confidencial_id]
 
   attr_reader(*ATTRS)
 

@@ -5,11 +5,39 @@ module Patients
   end
 
   def self.accept_or_cancel_consultation_mail(consultation_id, consultation_store)
+    consultation_store.update(consultation_id, confidencial_id: SecureRandom.uuid)
     ConsultationMailView.new(consultation_store.find(consultation_id))
   end
 
+  def self.cancel_consultation(params, consultation_store)
+    consultation = consultation_store.find_by(params)
+    if consultation
+      consultation_store.update(consultation.id, status: :cancel)
+      ConsultationStatus.new(:success)
+    else
+      ConsultationStatus.new(:error)
+    end
+  end
+
+  def self.accept_consultation(params, consultation_store)
+    consultation = consultation_store.find_by(params)
+    if consultation
+      consultation_store.update(consultation.id, status: :accepted)
+      ConsultationStatus.new(:success)
+    else
+      ConsultationStatus.new(:error)
+    end
+  end
+
+  class ConsultationStatus
+    attr_reader :status
+    def initialize(status)
+      @status = status
+    end
+  end
+
   class ConsultationMailView < SimpleDelegator
-    delegate :id, :time, to: :consultation, prefix: true
+    delegate :id, :time, :confidencial_id, to: :consultation, prefix: true
 
     def initialize(consultation)
       @consultation = consultation

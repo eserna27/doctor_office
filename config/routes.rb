@@ -11,7 +11,8 @@ Rails.application.routes.draw do
     root 'profiles#index'
   end
 
-  get "/cancelar_consulta/:id" => "patient#cancel_consultation", as: "cancel_consultation"
+  get "/cancelar_consulta/:confidencial_id" => "patient#cancel_consultation", as: "cancel_consultation"
+  get "/acceptar_consulta/:confidencial_id" => "patient#accept_consultation", as: "accept_consultation"
 
   root 'site#index'
 end

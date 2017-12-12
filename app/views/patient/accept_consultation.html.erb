@@ -2,9 +2,9 @@
   <%= render "layouts/patient_header", title: "Estatus de consulta" %>
   <h2>
     <% if @status == :success %>
-      <span class="text-success">Consulta Cancelada</span>
+      <span class="text-success">Consulta Aceptada</span>
     <% else %>
-      <span class="text-warning">No se pudo cancelar la consulta</span>
+      <span class="text-warning">No se pudo aceptar la consulta</span>
     <% end %>
   </h2>
 </div>
