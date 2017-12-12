@@ -2,6 +2,15 @@
   <section class="page-header">
     <h2>Iniciar sesión</h2>
   </section>
+  <% if alert %>
+    <div class="alert alert-primary" role="alert">
+      <%= alert %>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    </br>
+  <% end %>
   <div class="row justify-content-md-center">
     <div class="col-6">
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
