@@ -96,6 +96,24 @@ module Patients
         end
       end
 
+      def status
+        return "" if terminated_at
+        if consultation
+          return "Pendiente" if consultation.status == "pending"
+          return "Cancelada" if consultation.status == "cancel"
+          return "Acceptada" if consultation.status == "accepted"
+        end
+      end
+
+      def status_class
+        return "" if terminated_at
+        if consultation
+          return "text-warning" if consultation.status == "pending"
+          return "text-danger" if consultation.status == "cancel"
+          return "text-success" if consultation.status == "accepted"
+        end
+      end
+
       def time_at
         "#{time.strftime("%d")}-#{Calendar::MONTHS[time.strftime("%_m").to_i]}-#{time.strftime("%Y")}"
       end

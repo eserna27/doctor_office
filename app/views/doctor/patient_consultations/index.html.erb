@@ -8,6 +8,7 @@
             <th scope="col">Fecha</th>
             <th scope="col">Diagnostico</th>
             <th scope="col">Terminada</th>
+            <th scope="col">Estatus</th>
             <th scope="col"></th>
           </tr>
         </thead>
@@ -17,14 +18,17 @@
               <th scope="row"><%= consultation.time_at %></th>
               <td><%= consultation.diagnostic %></td>
               <th scope="row"><%= consultation.terminated_at %></th>
+              <th scope="row" class="<%= consultation.status_class %>"><%= consultation.status %></th>
               <td>
-                <% if consultation.terminated_at %>
-                  <%= link_to "Ver Consulta", doctor_patient_consultation_path(id: consultation.id, patient_id: consultation_view.patient_id),
-                    class: "btn btn-sm btn-outline-primary" %>
-                <% else %>
-                  <%= link_to "Atender" ,
-                    attend_patient_doctor_consultation_path(id: consultation.id, link_origin: :medical_history),
-                    class: "btn btn-success btn-sm" %>
+                <% if consultation.status != "Cancelada" %>
+                  <% if consultation.terminated_at %>
+                    <%= link_to "Ver Consulta", doctor_patient_consultation_path(id: consultation.id, patient_id: consultation_view.patient_id),
+                      class: "btn btn-sm btn-outline-primary" %>
+                  <% else %>
+                    <%= link_to "Atender" ,
+                      attend_patient_doctor_consultation_path(id: consultation.id, link_origin: :medical_history),
+                      class: "btn btn-success btn-sm" %>
+                  <% end %>
                 <% end %>
               </td>
             </tr>
