@@ -41,23 +41,40 @@ module Patients
         datetime = Date.parse('17/11/28')
         records = [
           consultation_with({time: Date.parse('17/11/28'),
-            patient_id: patient_id, doctor_id: doctor_id, terminated_at: datetime, diagnostic: "Tos"})
+            patient_id: patient_id,
+            doctor_id: doctor_id,
+            terminated_at: datetime,
+            diagnostic: "Tos",
+            status: ""}),
+            consultation_with({time: Date.parse('17/11/28'),
+              patient_id: patient_id,
+              doctor_id: doctor_id,
+              diagnostic: "Tos",
+              status: "pending"})
         ]
         consultation_store = consultation_store_with(records)
         patient_store = patient_store_with([])
-        @consultation = Patients.list_consultations(patient_id, doctor_id, consultation_store, patient_store).list.first
+        @consultation = Patients.list_consultations(patient_id, doctor_id, consultation_store, patient_store).list
       end
 
       it "has a terminated_at" do
-        expect(consultation.terminated_at).to eq "28-Noviembre-2017"
+        expect(consultation.map(&:terminated_at)).to eq ["28-Noviembre-2017", nil]
       end
 
       it "has a time_at" do
-        expect(consultation.time_at).to eq "28-Noviembre-2017"
+        expect(consultation.map(&:time_at)).to eq ["28-Noviembre-2017","28-Noviembre-2017"]
       end
 
       it "has a diagnostic" do
-        expect(consultation.diagnostic).to eq "Tos"
+        expect(consultation.map(&:diagnostic)).to eq ["Tos", "Tos"]
+      end
+
+      it "has status" do
+        expect(consultation.map(&:status)).to eq ["", "Pendiente"]
+      end
+
+      it "has status_class" do
+        expect(consultation.map(&:status_class)).to eq ["", "text-warning"]
       end
     end
 
