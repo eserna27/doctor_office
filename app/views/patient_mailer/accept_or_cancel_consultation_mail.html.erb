@@ -6,6 +6,13 @@
 </p>
 <br>
 <p>
+  Si desea Aceptar la consulta puede dar click a
+  <%= link_to "aceptar", accept_consultation_url(confidencial_id: @mail_view.consultation_confidencial_id), target: "_blank" %>
+</p>
+<p>
+  ó
+</p>
+<p>
   Si desea cancelar la consulta puede dar click a
-  <%= link_to "cancelar", cancel_consultation_url(id: @mail_view.consultation_id) %>
+  <%= link_to "cancelar", cancel_consultation_url(confidencial_id: @mail_view.consultation_confidencial_id), target: "_blank" %>
 </p>

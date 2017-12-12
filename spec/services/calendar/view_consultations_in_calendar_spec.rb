@@ -20,7 +20,8 @@ module Calendar
           doctor_id: doctor_id,
           time: DateTime.parse("2017-11-27T13:00:00-06:00"),
           patient: patient,
-          terminated_at: DateTime.parse("2017-11-27T13:00:00-06:00")
+          terminated_at: DateTime.parse("2017-11-27T13:00:00-06:00"),
+          status: "pending"
         })
         consultation_store = consultation_store_with([consultation])
         @consultations = Calendar.week_view(
@@ -45,6 +46,10 @@ module Calendar
 
       it "has patient_id" do
         expect(consultations.select{|consultation| consultation.taken? }.map(&:patient_id)).to eq [patient_id]
+      end
+
+      it "has status" do
+        expect(consultations.select{|consultation| consultation.taken? }.map(&:status)).to eq ["Pendiente"]
       end
     end
 

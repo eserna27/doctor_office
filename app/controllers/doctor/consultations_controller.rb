@@ -16,7 +16,7 @@ class Doctor::ConsultationsController < ApplicationController
       Patient)
     if status.success?
       send_mail_accept_or_cancel_to_patient(status)
-      redirect_to doctor_consultations_path
+      redirect_to doctor_consultations_path, alert: "Consulta creada y correo enviado al paciente"
     else
       render :form_with_errors, locals: {form: status.form}
     end
