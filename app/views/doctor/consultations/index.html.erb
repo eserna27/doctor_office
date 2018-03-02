@@ -1,65 +1,19 @@
-<div class="container">
-  <%= render "layouts/doctor_header", title: "Todas las Consultas", submenu: :consultation%>
-
-  <div class="row">
-    <div class="col text-left">
-      <%= link_to "< Semana anterior", doctor_consultations_path(date: week_view.last_week), class: "btn btn-outline-info"%>
-    </div>
-    <div class="col text-center">
-      <%= link_to "Semana Actual", doctor_consultations_path, class: "btn btn-outline-info"%>
-    </div>
-    <div class="col text-right">
-      <%= link_to "Semana siguiente >", doctor_consultations_path(date: week_view.next_week), class: "btn btn-outline-info"%>
-    </div>
-  </div>
-  </br>
-  <div class="row">
-    <% week_view.current_week.each do |week_day| %>
-      <div class="col" style="padding: 3px;">
-        <div class="card">
-          <div class="card-header bg-dark text-white text-center" style="padding: 10px 0 10px 0;">
-            <span style="font-size: 13px">
-              <%= "#{week_day.name} #{week_day.day.mday} #{week_day.month}" %>
-            </span>
-          </div>
-          <ul class="list-group">
-            <% week_day.consultations.each do |consultation| %>
-              <li class="list-group-item" style="padding: 0; border: 1px solid white; padding: 0px 0px 5px 0px;">
-                <a href="#" class="badge <%= consultation.badge_class %> align-top"
-                  style="width: 50px; position: absolute; top: 0; right: 0; left: 0;
-                  z-index: 1030; border-radius: 0px 5px 5px 0px;">
-                  <small><strong><%= consultation.hour_label %></strong></small>
-                </a>
-                <p style="width: 70px; position: absolute; top: 0; left: 70px;">
-                  <small class="<%= consultation.status_class %>">
-                    <%= consultation.status if consultation %>
-                  </small>
-                </p>
-                </br>
-                <div class="row">
-                  <div class="col">
-                    <% if consultation.taken?  %>
-                      <% if consultation.terminated? %>
-                        <%= link_to "Ver Consulta", doctor_patient_consultation_path(id: consultation.id,
-                          patient_id: consultation.patient_id, link_origin: :calendar),
-                          class: "btn btn-secondary btn-sm btn-block" %>
-                      <% else %>
-                        <%= link_to "Atender #{consultation.patient_name.truncate(10)}" ,
-                          attend_patient_doctor_consultation_path(id: consultation.id, link_origin: :calendar),
-                          class: "btn btn-success btn-sm btn-block" %>
-                      <% end %>
-                    <% elsif consultation.open? %>
-                      <%= link_to "Disponible" , new_doctor_consultation_path(time: consultation.date_time), class: "btn btn-outline-info btn-sm btn-block", remote: true %>
-                    <% else %>
-                      <%= link_to "No Disponible" ,"", class: "btn btn-outline-secondary btn-sm btn-block disabled", remote: true %>
-                    <% end %>
-                  </div>
-                </div>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-    <% end %>
-  </div>
+<%= render "layouts/doctor_header", title: "Todas las Consultas", submenu: :consultation%>
+<div class="container main-content">
+  <table class="table">
+    <thead>
+      <tr>
+        <% week_view.current_week.each do |week_day| %>
+          <th>
+            <span><%= "#{week_day.name}"%> </br> <%= "#{week_day.day.mday} #{week_day.month}" %>
+          </th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        
+      </tr>
+    </tbody>
+  </table>
 </div>

@@ -1,6 +1,5 @@
+<%= render "layouts/doctor_header", title: "Editar Paciente", submenu: :patient %>
 <div class="container">
-  <%= render "layouts/doctor_header", title: "Editar Paciente", submenu: :patient %>
-
   <div class="row">
     <div class="col-6">
       <%= simple_form_for form, as: :patient, url: doctor_patient_path(form.id), method: :patch do |f| %>

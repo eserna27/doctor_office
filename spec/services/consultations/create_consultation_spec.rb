@@ -44,11 +44,11 @@ module Consultations
     end
 
     def patient_store_with(records)
-      PatientFakeStore.new(records)
+      FakeStorePatient.new(records)
     end
 
     def patient_with(attrs)
-      PatientFake.new(attrs)
+      FakePatient.new(attrs)
     end
   end
 
@@ -96,7 +96,7 @@ module Consultations
         patients = [patient]
         patient_store = patient_store_with(patients)
         params = { time: time, patient_id: "1", doctor_id: doctor_id }
-        consultation_store = ConsultationFakeStore.new([])
+        consultation_store = FakeStoreConsultation.new([])
         @status = Consultations.create_consultation(params, consultation_store, patient_store)
       end
 
@@ -106,11 +106,11 @@ module Consultations
     end
 
     def patient_store_with(records)
-      PatientFakeStore.new(records)
+      FakeStorePatient.new(records)
     end
 
     def patient_with(attrs)
-      PatientFake.new(attrs)
+      FakePatient.new(attrs)
     end
   end
 end

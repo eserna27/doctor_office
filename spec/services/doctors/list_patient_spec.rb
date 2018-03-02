@@ -28,11 +28,11 @@ module Doctors
     end
 
     def patient_store_with(records)
-      PatientFakeStore.new(records)
+      FakeStorePatient.new(records)
     end
 
     def patient_with(attrs)
-      PatientFake.new(attrs)
+      FakePatient.new(attrs)
     end
   end
 end

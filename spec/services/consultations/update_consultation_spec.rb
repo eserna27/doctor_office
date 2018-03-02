@@ -13,7 +13,7 @@ module Consultations
           observations: "some text here",
           terminated_at: DateTime.now
         }
-        @consultation_store = ConsultationFakeStore.new([])
+        @consultation_store = FakeStoreConsultation.new([])
       end
 
       it "call consultation_store" do

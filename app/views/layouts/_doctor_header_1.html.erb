@@ -1,0 +1,38 @@
+<section class="page-header">
+  <div class="row page-header-principal">
+    <div class="col">
+      <h2>
+        <%= title %>
+      </h2>
+    </div>
+    <div class="col">
+      <div class="btn-group float-right" role="group" aria-label="Basic example">
+        <%= link_to "Mi perfil", doctor_root_path, class: "btn btn-outline-dark float-right" %>
+        <%= link_to "Pacientes", doctor_patients_path, class: "btn btn-outline-dark float-right" %>
+        <%= link_to "Consultas", doctor_consultations_path, class: "btn btn-outline-dark float-right" %>
+        <%= link_to "Cerrar Sesión", destroy_doctor_session_path, method: :delete, class: "btn btn-outline-dark float-right" %>
+      </div>
+    </div>
+  </div>
+  <div class="row page-header-submenu">
+    <div class="col">
+      <div class="btn-group float-right" role="group" aria-label="Basic example">
+        <% if submenu == :patient %>
+          <%= link_to "Crear paciente", new_doctor_patient_path, class: "btn btn-outline-dark float-right" %>
+          <%= link_to "Ver pacientes", doctor_patients_path, class: "btn btn-outline-dark float-right" %>
+        <% end %>
+        <% if submenu == :consultation %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
+<% if alert %>
+  <div class="alert alert-primary" role="alert">
+    <%= alert %>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  </br>
+<% end %>

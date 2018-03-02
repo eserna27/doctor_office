@@ -9,7 +9,7 @@ module Doctors
         @patient_attrs = {name: "Emmanuel", last_name: "Serna",
           email: "eserna27@gmail.com", gender: "hombre", doctor_id: rand(10)}
         @patient_id = rand(10)
-        @patient_store = PatientFakeStore.new([])
+        @patient_store = FakeStorePatient.new([])
       end
 
       it "call consultation_store" do

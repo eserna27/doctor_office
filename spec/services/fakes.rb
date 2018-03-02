@@ -24,13 +24,13 @@ class DummyStore
   end
 end
 
-class PatientFakeStore < DummyStore
+class FakeStorePatient < DummyStore
   def patient_with_doctor_id(doctor_id)
     where({doctor_id: doctor_id})
   end
 end
 
-class PatientFake
+class FakePatient
   ATTRS = [:doctor_id, :name, :last_name, :email, :gender, :id]
 
   attr_reader(*ATTRS)
@@ -40,7 +40,7 @@ class PatientFake
   end
 end
 
-class ConsultationFakeStore < DummyStore
+class FakeStoreConsultation < DummyStore
   def doctor_day_consultations(doctor_id:, time:)
     all.select {|record|  record.doctor_id == doctor_id && (record.time.to_date == time.to_date ) }
   end
@@ -50,18 +50,26 @@ class ConsultationFakeStore < DummyStore
   end
 
   def create(attrs)
-    ConsultationFake.new(id: :new)
+    FakeConsultation.new(id: :new)
   end
 
   def find_consultation_for_patient_and_doctor(params)
     all.detect {|record|
       record.id == params[:id] &&
       record.doctor_id == params[:doctor_id] &&
-      record.patient_id == params[:patient_id]  }
+      record.patient_id == params[:patient_id]
+    }
+  end
+
+  def all_doctor_consultation_on(doctor_id, date)
+    all.detect{|consultation|
+      consultation.doctor_id = doctor_id &&
+      consultation.time = date
+    }
   end
 end
 
-class ConsultationFake
+class FakeConsultation
   ATTRS = [:doctor_id, :time, :patient, :id, :terminated_at, :status,
     :patient_id, :diagnostic, :prescription, :observations, :doctor, :confidencial_id]
 
@@ -72,7 +80,7 @@ class ConsultationFake
   end
 end
 
-class DoctorFake
+class FakeDoctor
   ATTRS = [:name, :last_name]
 
   attr_reader(*ATTRS)

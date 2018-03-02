@@ -33,6 +33,10 @@ module Doctors
     patient_store.patient_with_doctor_id(doctor_id)
   end
 
+  def self.day_of_work(doctor_id, date, consultation_store, calendar_generator)
+    consultation_store.all_doctor_consultation_on(doctor_id, date)
+  end
+
   class PatientForm
     include ActiveModel::Model
 

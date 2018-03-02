@@ -89,7 +89,7 @@ module Doctors
     end
 
     def patient_store_with
-      PatientFakeStore.new
+      FakeStorePatient.new
     end
   end
 end

@@ -34,11 +34,11 @@ module Consultations
     end
 
     def consultation_with(attrs)
-      ConsultationFake.new(attrs)
+      FakeConsultation.new(attrs)
     end
 
     def consultation_store_with(records)
-      ConsultationFakeStore.new(records)
+      FakeStoreConsultation.new(records)
     end
   end
 end

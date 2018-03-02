@@ -79,19 +79,19 @@ module Patients
     end
 
     def consultation_store_with(records)
-      ConsultationFakeStore.new(records)
+      FakeStoreConsultation.new(records)
     end
 
     def consultation_with(attrs)
-      ConsultationFake.new(attrs)
+      FakeConsultation.new(attrs)
     end
 
     def patient_with(attrs)
-      PatientFake.new(attrs)
+      FakePatient.new(attrs)
     end
 
     def patient_store_with(records)
-      PatientFakeStore.new(records)
+      FakeStorePatient.new(records)
     end
   end
 end

@@ -96,7 +96,7 @@ module Calendar
     end
 
     def consultation_store_with(records)
-      ConsultationFakeStore.new(records)
+      FakeStoreConsultation.new(records)
     end
   end
 end
