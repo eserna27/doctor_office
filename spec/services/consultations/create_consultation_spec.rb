@@ -1,6 +1,9 @@
 require_relative '../consultation_spec'
 
 module Consultations
+  RSpec.describe "Create consultation" do
+    it "has form"
+  end
   RSpec.describe "new_consultation_with_time" do
     describe "when doctor create a consultation with time" do
       attr_reader :time, :patients, :form, :patient_id

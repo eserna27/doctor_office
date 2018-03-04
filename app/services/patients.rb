@@ -1,4 +1,36 @@
+require_relative 'patients/form'
+require_relative 'status'
+
 module Patients
+  def self.create_patient_form(doctor_id)
+    Patients::Form.new({"doctor_id" => doctor_id})
+  end
+
+  def self.create_patient(params, store)
+    form = Patients::Form.new(params)
+    if form.valid?
+      store.create(form.to_h)
+      Status::Success.new
+    else
+      Status::Error.new(form)
+    end
+  end
+
+  def self.update_patient_form(patient_id, patient_store)
+    patient = patient_store.find(patient_id)
+    Patients::Form.new_for_edit(patient)
+  end
+
+  def self.update_patient(patient_id, params, patient_store)
+    form = Patients::Form.new(params)
+    if form.valid?
+      patient_store.update(patient_id, form.to_h)
+      Status::Success.new
+    else
+      Status::Error.new(form)
+    end
+  end
+
   def self.list_consultations(patient_id, doctor_id, consultation_store, patient_store)
     patient = patient_store.find(patient_id)
     ListConsultationsView.new(consultation_store.patient_consultations(patient_id, doctor_id), patient)

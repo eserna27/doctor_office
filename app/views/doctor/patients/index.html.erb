@@ -1,24 +1,27 @@
 <%= render "layouts/doctor_header", title: "Todos los Pacientes", submenu: :patient %>
 <div class="container">
+  <br>
   <div class="row">
     <div class="col">
       <table class="table">
         <thead>
           <tr>
+            <th scope="col"></th>
             <th scope="col">Correo</th>
             <th scope="col">Nombre</th>
             <th scope="col">Apellidos</th>
-            <th scope="col">Sexo</th>
-            <th scope="col"></th>
+            <th scope="col"><%= link_to "Nuevo Paciente", new_doctor_patient_path(doctor_id), class: "btn btn-sm btn-info"%></th>
           </tr>
         </thead>
         <tbody>
           <% patients.each do |patient| %>
             <tr>
+              <td class="text-center">
+                <i class="fas fa-<%= patient.gender %>" style="color: <%= patient.gender == 'male' ? 'blue' : 'pink' %>"></i>
+              </td>
               <th scope="row"><%= patient.email %></th>
               <td><%= patient.name %></td>
               <td><%= patient.last_name %></td>
-              <td><%= patient.gender %></td>
               <td>
                 <%= link_to "Ver Consultas", doctor_patient_consultations_path(patient_id: patient.id), class: "btn btn-sm btn-outline-primary" %>
                 <%= link_to "Editar", edit_doctor_patient_path(patient.id), class: "btn btn-sm btn-outline-info" %>

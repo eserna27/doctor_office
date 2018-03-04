@@ -1,11 +1,11 @@
 class Doctor::PatientsController < ApplicationController
   def new
-    form = Doctors.new_patient(doctor_id: current_doctor.id)
+    form = Patients.create_patient_form(current_doctor.id)
     render :new, locals: {form: form}
   end
 
   def create
-    status = Doctors.create_patient(params[:patient].merge(doctor_id: current_doctor.id), Patient)
+    status = Patients.create_patient(params[:patient].merge(doctor_id: current_doctor.id), Patient)
     if status.success?
       redirect_to doctor_patients_path, alert: "Paciente creado"
     else
@@ -14,12 +14,12 @@ class Doctor::PatientsController < ApplicationController
   end
 
   def edit
-    form = Doctors.edit_patient(params[:id], Patient)
+    form = Patients.update_patient_form(params[:id], Patient)
     render :edit, locals: {form: form}
   end
 
   def update
-    status = Doctors.update_patient(params[:id], params[:patient].merge(doctor_id: current_doctor.id), Patient)
+    status = Patients.update_patient(params[:id], params[:patient].merge(doctor_id: current_doctor.id), Patient)
     if status.success?
       redirect_to doctor_patients_path, alert: "Paciente actualizado"
     else
@@ -28,7 +28,7 @@ class Doctor::PatientsController < ApplicationController
   end
 
   def index
-    patients = Doctors.list_patients(current_doctor.id, Patient)
-    render :index, locals: {patients: patients}
+    patients = Doctors.list_doctor_patients(current_doctor.id, Patient)
+    render :index, locals: {patients: patients, doctor_id: current_doctor.id}
   end
 end
