@@ -1,15 +1,13 @@
 <%= render "layouts/doctor_header", title: "Nuevo Paciente", submenu: :patient %>
 <div class="container">
   <br>
+  <h2>
+    Nuevo Paciente
+  </h2>
+  <br>
   <div class="row">
     <div class="col-6">
-      <%= simple_form_for form, as: :patient, url: doctor_patients_path do |f| %>
-        <%= f.input :name, label: "Nombre" %>
-        <%= f.input :last_name, label: "Apellidos" %>
-        <%= f.input :gender, label: "Sexo", collection: ["Hombre", "Mujer"] %>
-        <%= f.input :email, label: "Correo" %>
-        <%= f.submit "Guardar", class: "btn btn-primary" %>
-      <% end %>
+      <%= render "form", form: form, url: doctor_patients_path, method: :post %>
     </div>
   </div>
 </div>

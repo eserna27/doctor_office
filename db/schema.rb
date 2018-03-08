@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171212015936) do
+ActiveRecord::Schema.define(version: 20180307042729) do
 
 # Could not dump table "consultations" because of following StandardError
 #   Unknown type '' for column 'confidencial_id'
@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(version: 20171212015936) do
     t.integer "doctor_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "phone"
+    t.date "birthday"
     t.index ["doctor_id"], name: "index_patients_on_doctor_id"
   end
 

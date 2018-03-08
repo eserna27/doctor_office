@@ -2,7 +2,7 @@ module Patients
   class Form
     include ActiveModel::Model
 
-    ATTRS = [:name, :last_name, :email, :gender, :doctor_id]
+    ATTRS = [:name, :last_name, :email, :gender, :doctor_id, :phone, :birthday]
 
     attr_accessor(*ATTRS)
     attr_accessor :id
@@ -15,6 +15,8 @@ module Patients
       @email = attrs["email"]
       @gender = attrs["gender"]
       @doctor_id = attrs["doctor_id"]
+      @phone = attrs["phone"]
+      @birthday = attrs["birthday"]
     end
 
     def self.new_for_edit(patient)

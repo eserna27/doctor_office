@@ -1,16 +1,14 @@
 <%= render "layouts/doctor_header", title: "Editar Paciente", submenu: :patient %>
 <div class="container">
   <br>
+  <h2>
+    Editar
+    <small class="text-muted"><%= "#{form.name} #{form.last_name}" %></small>
+  </h2>
+  <br>
   <div class="row">
     <div class="col-6">
-      <%= simple_form_for form, as: :patient, url: doctor_patient_path(form.id), method: :patch do |f| %>
-        <%= f.input :name, label: "Nombre" %>
-        <%= f.input :last_name, label: "Apellidos" %>
-        <%= f.input :gender, label: "Sexo", collection: [["Hombre", "male"], ["Mujer", "female"]] %>
-        <%= f.input :email, label: "Correo" %>
-        <%= link_to "Cancelar", doctor_patients_path, class: "btn btn-light" %>
-        <%= f.submit "Guardar", class: "btn btn-primary" %>
-      <% end %>
+      <%= render "form", form: form, url: doctor_patient_path(form.id), method: :patch %>
     </div>
   </div>
 </div>

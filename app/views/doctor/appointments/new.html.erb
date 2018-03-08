@@ -1,0 +1,13 @@
+<%= render "layouts/doctor_header", title: "Nueva cita", submenu: :appointment %>
+<div class="container">
+  <br>
+  <h2>
+    Nueva cita
+  </h2>
+  <br>
+  <div class="row">
+    <div class="col-6">
+      <%= render "form", form: form, url: doctor_appointments_path, method: :post %>
+    </div>
+  </div>
+</div>

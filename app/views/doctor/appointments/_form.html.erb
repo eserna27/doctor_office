@@ -1,0 +1,7 @@
+<%= simple_form_for form, as: :appointment, url: url, method: method do |f| %>
+  <%= f.input :patient_id, label: "Paciente", collection: form.patients_options,
+    input_html: { class: 'chosen-select' } %>
+  <%= f.input :scheduled, label: "Fecha y hora" %>
+  <%= link_to "Cancelar", doctor_patients_path, class: "btn btn-light" %>
+  <%= f.submit "Guardar", class: "btn btn-primary" %>
+<% end %>

@@ -1,0 +1,10 @@
+<%= simple_form_for form, as: :patient, url: url, method: method do |f| %>
+  <%= f.input :name, label: "Nombre" %>
+  <%= f.input :last_name, label: "Apellidos" %>
+  <%= f.input :gender, label: "Sexo", collection: [["Hombre", "male"], ["Mujer", "female"]] %>
+  <%= f.input :birthday, label: "Fecha de nacimiento", input_html: { class: "js-date-picker" } %>
+  <%= f.input :phone, label: "Telefono" %>
+  <%= f.input :email, label: "Correo" %>
+  <%= link_to "Cancelar", doctor_patients_path, class: "btn btn-light" %>
+  <%= f.submit "Guardar", class: "btn btn-primary" %>
+<% end %>

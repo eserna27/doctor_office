@@ -16,6 +16,12 @@
               Pacientes
             <% end %>
           </li>
+          <li class="nav-item <%= 'active' if submenu == :appointment %>">
+            <%= link_to new_doctor_appointment_path, class: "nav-link" do %>
+              <i class="far fa-calendar-plus"></i>
+              Nueva Cita
+            <% end %>
+          </li>
           <li class="nav-item <%= 'active' if submenu == :consultation %>">
             <%= link_to doctor_consultations_path, class: "nav-link" do %>
               <i class="fas fa-stethoscope"></i>

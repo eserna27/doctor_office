@@ -15,6 +15,10 @@ end
 
 class FakePatient < FakeRecord
   ATTRS = [:doctor_id, :name, :last_name, :email, :gender, :id]
+
+  def full_name
+    "#{name} #{last_name}"
+  end
 end
 
 class FakeConsultation < FakeRecord

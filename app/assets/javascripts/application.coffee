@@ -15,5 +15,5 @@
 #= require jquery
 #= require jquery_ujs
 #= require moment
-#= require bootstrap-datetimepicker
+#= require date-picker
 #= require_tree .

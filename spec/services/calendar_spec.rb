@@ -5,7 +5,7 @@ require_relative 'fakes_stores'
 
 module Calendar
   RSpec.describe "#week_view" do
-    describe "recive the current week" do
+    describe "receive the current week" do
       attr_reader :week_view, :current_date
 
       before do

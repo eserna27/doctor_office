@@ -34,6 +34,8 @@ module Patients
       expect(form.last_name).to eq nil
       expect(form.gender).to eq nil
       expect(form.email).to eq nil
+      expect(form.phone).to eq nil
+      expect(form.birthday).to eq nil
       expect(form.doctor_id).to eq doctor_id
     end
 
@@ -44,7 +46,9 @@ module Patients
           last_name: "Serna Sandoval",
           gender: "m",
           email: "eserna27@gmail.com",
-          doctor_id: "d1"
+          doctor_id: "d1",
+          phone: "83320161",
+          birthday: Date.new(1991, 07, 27)
         }
       )
       create_patient(params)
@@ -63,7 +67,9 @@ module Patients
           "last_name" => "",
           "gender" => "",
           "email" => "",
-          "doctor_id" => ""
+          "doctor_id" => "",
+          "phone" => "",
+          "birthday" => ""
         }
       end
 
@@ -85,6 +91,8 @@ module Patients
         expect(errors).to include email: ["no puede estar en blanco"]
         expect(errors).to include gender: ["no puede estar en blanco"]
         expect(errors).to include doctor_id: ["no puede estar en blanco"]
+        expect(errors).to include birthday: ["no puede estar en blanco"]
+        expect(errors).to include phone: ["no puede estar en blanco"]
       end
     end
   end

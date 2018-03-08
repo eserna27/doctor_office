@@ -1,28 +1,26 @@
 require_relative 'calendar'
 require "active_support"
+require_relative 'status'
 
 module Consultations
+  def self.new_consultation_form(doctor_id, patients_store)
+    ConsultationForm.new(doctor_id, patients_store)
+  end
+
+  def self.create_consultation(doctor_id, params, consultation_store, patients_store)
+    form = ConsultationForm.new(doctor_id, patients_store, params)
+    if form.valid?
+      consultation_store.create(form.to_h)
+      Status::Success.new
+    else
+      Status::Error.new(form)
+    end
+  end
+
   def self.new_consultation_with_time(params, patients_store)
     patients_options = patients_store.patient_with_doctor_id(params[:doctor_id]).
       map { |patient| ["#{patient.name} #{patient.last_name}".titleize, patient.id] }
     Form.new(time: DateTime.parse(params[:time]), patients_options: patients_options)
-  end
-
-  def self.create_consultation(params, consultation_store, patients_store)
-    patients_options = patients_store.patient_with_doctor_id(params[:doctor_id]).
-      map { |patient| ["#{patient.name} #{patient.last_name}".titleize, patient.id] }
-    form = Form.new({
-      time: DateTime.parse(params[:time]),
-      patient_id: params[:patient_id],
-      doctor_id: params[:doctor_id],
-      patients_options: patients_options
-    })
-    if form.valid?
-      consultation = consultation_store.create(form.to_h)
-      SuccessStatus.new(consultation.id)
-    else
-      ErrorStatus.new(form)
-    end
   end
 
   def self.attend_patient(consultation_id, consultation_store)

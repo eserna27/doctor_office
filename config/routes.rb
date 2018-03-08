@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :consultations do
       get 'attend_patient', on: :member
     end
+    resources :appointments
     root 'profiles#index'
   end
 
