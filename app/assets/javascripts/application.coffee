@@ -14,6 +14,8 @@
 #= require turbolinks
 #= require jquery
 #= require jquery_ujs
-#= require moment
+#= require moment.js
+#= require moment/es.js
+#= require tempusdominus-bootstrap-4.js
 #= require date-picker
 #= require_tree .
