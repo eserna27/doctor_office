@@ -15,10 +15,6 @@ module Doctors
     end
   end
 
-  def self.list_doctor_patients(doctor_id, patient_store)
-    patient_store.where(doctor_id: doctor_id)
-  end
-
   def self.edit_patient(patient_id, patient_store)
     PatientForm.edit_patient(patient_store.find(patient_id))
   end

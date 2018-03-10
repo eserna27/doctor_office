@@ -10,7 +10,7 @@ module Patients
     form = Patients::Form.new(params)
     if form.valid?
       store.create(form.to_h)
-      Status::Success.new
+      Status::Success
     else
       Status::Error.new(form)
     end
@@ -25,10 +25,14 @@ module Patients
     form = Patients::Form.new(params)
     if form.valid?
       patient_store.update(patient_id, form.to_h)
-      Status::Success.new
+      Status::Success
     else
       Status::Error.new(form)
     end
+  end
+
+  def self.list_doctor_patients(doctor_id, patient_store)
+    patient_store.patient_with_doctor_id(doctor_id)
   end
 
   def self.list_consultations(patient_id, doctor_id, consultation_store, patient_store)
@@ -45,16 +49,6 @@ module Patients
     consultation = consultation_store.find_by(params)
     if consultation
       consultation_store.update(consultation.id, status: :cancel)
-      ConsultationStatus.new(:success)
-    else
-      ConsultationStatus.new(:error)
-    end
-  end
-
-  def self.accept_consultation(params, consultation_store)
-    consultation = consultation_store.find_by(params)
-    if consultation
-      consultation_store.update(consultation.id, status: :accepted)
       ConsultationStatus.new(:success)
     else
       ConsultationStatus.new(:error)

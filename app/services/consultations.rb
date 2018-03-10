@@ -11,7 +11,7 @@ module Consultations
     form = ConsultationForm.new(doctor_id, patients_store, params)
     if form.valid?
       consultation_store.create(form.to_h)
-      Status::Success.new
+      Status::Success
     else
       Status::Error.new(form)
     end

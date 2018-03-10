@@ -22,10 +22,14 @@ class FakePatient < FakeRecord
 end
 
 class FakeConsultation < FakeRecord
-  ATTRS = [:doctor_id, :time, :patient, :id, :terminated_at, :status,
+  ATTRS = [:doctor_id, :time, :patient, :id, :terminated_at,
     :patient_id, :diagnostic, :prescription, :observations, :doctor, :confidencial_id]
 end
 
 class FakeDoctor < FakeRecord
   ATTRS = [:name, :last_name]
+end
+
+class FakeAppointment < FakeRecord
+  ATTRS = [:id, :confidencial_id, :status]
 end

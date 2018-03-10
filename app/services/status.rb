@@ -1,6 +1,6 @@
 module Status
   class Success
-    def success?
+    def self.success?
       true
     end
   end
@@ -10,6 +10,10 @@ module Status
 
     def initialize(form)
       @form = form
+    end
+
+    def self.success?
+      false
     end
 
     def success?

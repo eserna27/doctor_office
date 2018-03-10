@@ -15,6 +15,9 @@ class FakeBasicStore
     @all = records
   end
 
+  def update(id, params)
+  end
+
   def find(param)
     where_private("id", param).first
   end

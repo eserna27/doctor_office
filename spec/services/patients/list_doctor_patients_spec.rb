@@ -1,13 +1,13 @@
-require_relative '../doctor_spec'
+require_relative '../patients_spec'
 
-module Doctors
+module Patients
   RSpec.describe "List doctors patients" do
     def patient_with(attrs)
       FakePatient.new(attrs)
     end
 
     def patient_store_with(records)
-      FakeBasicStore.new(records)
+      FakeStorePatient.new(records)
     end
 
     def list_doctor_patients(doctor_id, patient_store)
